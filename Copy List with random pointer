@@ -1,0 +1,30 @@
+class Solution {
+    public Node copyRandomList(Node head) {
+        Node curNode=head;
+        if(curNode==null) return curNode;
+        //make new node for every node
+        while(curNode!=null){
+            Node nextNode=curNode.next;
+            curNode.next=new Node(curNode.val);
+            curNode.next.next=nextNode;
+            curNode=nextNode;
+        }
+        //initialise random pointers
+        curNode=head;
+        while(curNode!=null){
+            curNode.next.random=curNode.random!=null?curNode.random.next:null;
+            curNode=curNode.next.next;
+        }
+        Node newHead=head.next;
+        //separating two lists
+        curNode=head;
+        while(curNode!=null){
+            Node tempNode=curNode.next;
+            curNode.next=curNode.next.next;
+            if(tempNode.next!=null)
+            tempNode.next=tempNode.next.next;
+            curNode=curNode.next;
+        }
+        return newHead;
+    }
+}
