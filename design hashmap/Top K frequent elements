@@ -1,0 +1,35 @@
+class Element{
+int ele;
+int freq;
+public Element(int ele, int freq)
+{
+this.ele=ele;
+this.freq=freq;
+}
+}
+class Solution {
+public int[] topKFrequent(int[] nums, int k) {
+int []ans =new int[k];
+HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+//storing frequency of each element in hashmap
+for(int i=0;i<nums.length;i++)
+{
+map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+}
+//implementing max heap generic priority queue which is of Element class Type
+PriorityQueue queue=new PriorityQueue((data1,data2)->data2.freq-data1.freq);
+//storing data of hashmap into priority queue
+for(Map.Entry<Integer,Integer> e:map.entrySet())
+{
+queue.add(new Element(e.getKey(),e.getValue()));
+}
+int j=0;
+//stroing priority queue in array
+for(int i=k;i>0;i--)
+{
+ans[j++]=queue.poll().ele;
+}
+return ans;
+}
+}
+
